@@ -1,0 +1,68 @@
+<%@page import="kr.or.ddit.banban.vo.MsgVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+	/* session.setAttribute("receive_id", "받는이");
+	WebMsgDTO dto = (WebMsgDTO)session.getAttribute("receive_id"); */
+	List<MsgVO> msgList = (List<MsgVO>) request.getAttribute("msgList");
+	//request.setAttribute("memId", "받는이");
+			/* 받는이는 로그인한 사람의 아이디가 들어가도록 */
+	/* MsgVO dto = new MsgVO(session.getAttribute("wmReceiveId").toString());
+	MsgDaoImpl dao = new MsgDaoImpl();
+	ArrayList<MsgVO> listMsg = new ArrayList<MsgVO>(); */
+	
+	/* System.out.println("1 : " + dto2.getReceive_id());
+	System.out.println("2 : " + dao); */
+	
+	/* if(dto != null) {
+		listMsg = dao.showMsgDTO(dto.getWmReceiveId());
+	} */
+%>
+	<table border="1px solid">
+		<tr>
+			<th> 번호 </th>
+			<th> 보낸사람 </th>
+			<th> 받는사람 </th>
+			<th> 내용 </th>
+			<th> 발신일 </th>
+		</tr>
+<%-- 		<% for(int i=0; i<listMsg.size(); i++){%> --%>
+		<tr>
+			<%-- <td> <%=i+1 %> </td>
+			<td> <%=listMsg.get(i).getMemId() %> </td>
+			<td> <%=listMsg.get(i).getWmReceiveId() %> </td>
+			<td> <%=listMsg.get(i).getWmMsg() %> </td>
+			<td> <%=listMsg.get(i).getWmMdate() %> </td> --%>
+			
+<% 
+	int msgSize = msgList.size();
+	
+	if (msgSize == 0) {
+		out.print("값없음");
+	}else {
+		int i = 1;
+		for (MsgVO msg : msgList) {
+			
+%>
+			<td> <%=i++%> </td> <!-- max로 만들면 될듯 -->
+			<td> <%=msg.getMemId() %> </td>
+			<td> <%=msg.getWmReceiveId() %> </td>
+			<td> <%=msg.getWmMsg() %> </td>
+			<td> <%=msg.getWmMdate() %> </td>
+		</tr>
+<%
+		}
+	}
+%>
+	</table>
+</body>
+</html>

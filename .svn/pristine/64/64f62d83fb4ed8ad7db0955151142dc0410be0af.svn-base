@@ -1,0 +1,61 @@
+package kr.or.ddit.banban.service;
+
+import java.util.List;
+
+import kr.or.ddit.banban.dao.INoticeDaoforJDBC;
+import kr.or.ddit.banban.dao.NoticeDaoImpl;
+import kr.or.ddit.banban.vo.NoticeVO;
+
+public class NoticeServiceImpl implements INoticeService {
+
+	private INoticeDaoforJDBC ncDao;
+	
+	public NoticeServiceImpl() {
+		ncDao = NoticeDaoImpl.getInstance();
+	}
+	
+	private static INoticeService ncService;
+	
+	public static INoticeService getInstance() {
+		if(ncService == null)
+			ncService = new NoticeServiceImpl();
+		return ncService;	
+	}
+	
+
+	@Override
+	public int registerNotice(NoticeVO nv) {
+		return 0;
+	}
+
+	@Override
+	public boolean checkNotice(int bdNo) {
+		return false;
+	}
+
+	@Override
+	public List<NoticeVO> getAllNotice() {
+		return ncDao.getAllNotice();
+	}
+
+	@Override
+	public int modifyNotie(NoticeVO nv) {
+		return 0;
+	}
+
+	@Override
+	public int removeNotice(int bdNo) {
+		return 0;
+	}
+
+	@Override
+	public List<NoticeVO> getNotice(NoticeVO nv) {
+		return ncDao.getNotice(nv);
+	}
+
+	@Override
+	public NoticeVO getNoticeOne(int bdNo) {
+		return ncDao.getNoticeOne(bdNo);
+	}
+	
+}

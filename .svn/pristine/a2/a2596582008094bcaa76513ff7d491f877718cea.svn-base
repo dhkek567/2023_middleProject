@@ -1,0 +1,23 @@
+package kr.or.ddit.banban.dao;
+
+import java.util.List;
+
+import kr.or.ddit.banban.vo.BoardVO;
+
+
+public interface IBoardDao {
+
+	public int insertNotice (BoardVO nv);
+
+	public boolean checkNotice(int bdNo);
+	
+	public List<BoardVO> getAllNotice();
+
+	public int updateNoitce(BoardVO nv);
+
+	public int deleteNotice(int bdNo);
+
+	public List<BoardVO> getNotice(BoardVO nv);
+
+	public BoardVO getNoticeOne(int bdNo);
+}

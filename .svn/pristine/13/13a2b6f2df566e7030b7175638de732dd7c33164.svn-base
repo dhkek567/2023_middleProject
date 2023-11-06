@@ -1,0 +1,177 @@
+package kr.or.ddit.banban.dao;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.exceptions.PersistenceException;
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.banban.vo.BoardVO;
+import kr.or.ddit.util.MyBatisUtil;
+
+public class BoardDaoImpl implements IBoardDao {
+
+	private static IBoardDao ncDao;
+
+	public static IBoardDao getInstance() {
+		if (ncDao == null)
+			ncDao = new BoardDaoImpl();
+		return ncDao;
+	}
+
+	@Override
+	public int insertNotice(BoardVO nv) {
+		
+		int cnt = 0;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+
+			cnt = session.insert("board.NoticeInsertForm", nv);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return cnt;
+	}
+	
+
+	@Override
+	public boolean checkNotice(int bdNo) {
+
+		boolean isExist = false;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+
+			int cnt = session.selectOne("board.checkNotice", bdNo);
+
+			if (cnt > 0) {
+				isExist = true;
+			}
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return isExist;
+		
+	}
+
+	@Override
+	public List<BoardVO> getAllNotice() {
+
+		List<BoardVO> ncList = new ArrayList<BoardVO>();
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+
+			ncList = session.selectList("board.getAllNotice");
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return ncList;
+
+	}
+
+	@Override
+	public int updateNoitce(BoardVO nv) {
+	
+		int cnt = 0;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+		try {
+
+			cnt = session.update("board.updateNoitce", nv);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return cnt;
+		
+	}
+
+	@Override
+	public int deleteNotice(int bdNo) {
+		
+		int cnt = 0;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+			cnt = session.delete("board.deleteNotice", bdNo);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return cnt;
+		
+	}
+	
+	@Override
+	public List<BoardVO> getNotice(BoardVO nv) {
+
+		List<BoardVO> nvList = Collections.emptyList();
+		
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+			
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("bdNo", nv.getBdNo());
+			paramMap.put("memId", nv.getMemId());
+			paramMap.put("bdTitle", nv.getBdTitle());
+			paramMap.put("bdCont", nv.getBdCont());
+			
+			nvList = session.selectList("board.getNotice", paramMap);
+
+			
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return nvList;
+	
+	}
+
+	@Override
+	public BoardVO getNoticeOne(int bdNo) {
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		BoardVO bd = null;
+		
+		try {
+			
+			bd = session.selectOne("board.getNoticeOne", bdNo);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return bd;
+		
+	}
+	
+}

@@ -1,0 +1,62 @@
+package kr.or.ddit.banban.controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.banban.service.FindServiceImpl;
+import kr.or.ddit.banban.service.IFindService;
+import kr.or.ddit.banban.service.MemberServiceImpl;
+import kr.or.ddit.banban.service.IMemberService;
+import kr.or.ddit.banban.vo.MemberVO;
+
+@WebServlet("/FindPw")
+public class FindPwController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RequestDispatcher rd = req.getRequestDispatcher("/FindPw.jsp");
+		rd.forward(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		String memNm = req.getParameter("memNm");
+		String memEmail = req.getParameter("memEmail");
+		String memId = req.getParameter("memId");
+
+		System.out.println("controller 에서 memNm >> " + memNm);
+		System.out.println("controller 에서  memEmail >> " + memEmail);
+		System.out.println("controller 에서  memId >> " + memId);
+
+		IFindService service = FindServiceImpl.getInstance();
+		IMemberService memService = MemberServiceImpl.getInstance();
+
+		MemberVO mv = new MemberVO();
+
+		mv.setMemId(memId);
+		mv.setMemNm(memNm);
+		mv.setMemEmail(memEmail);
+
+		MemberVO mv2 = service.getFindPw(mv);
+
+//		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
+		if (mv2 != null) {
+			String memPw = mv2.getMemPw();
+			resp.getWriter().println("{\"memPw\": \"" + memPw + "\"}");
+		} else {
+			resp.getWriter().println("{\"memPw\": \"요청하신 정보는 존재하지 않습니다. \"}");
+		}
+
+	}
+}

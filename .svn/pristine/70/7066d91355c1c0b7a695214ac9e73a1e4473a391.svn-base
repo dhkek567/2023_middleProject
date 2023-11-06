@@ -1,0 +1,44 @@
+package kr.or.ddit.notice.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.notice.dao.NoticeDaoImpl;
+import kr.or.ddit.notice.dao.INoticeDaoforJDBC;
+import kr.or.ddit.notice.service.NoticeServiceImpl;
+import kr.or.ddit.notice.service.INoticeService;
+import kr.or.ddit.notice.vo.NoticeVO;
+
+@WebServlet(value = "/notice/detail.do") // value는 생략이 가능하다.
+public class DetailNoticeController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		int bdNo = Integer.parseInt(req.getParameter("bdNo"));
+		
+		// 1. 서비스 생성
+		INoticeService ncService = NoticeServiceImpl.getInstance();
+		
+		// 2. 회원정보 상세 조회
+		NoticeVO nv = ncService.getNoticeOne(bdNo);
+
+		// 3. 요청객체에 데이터 저장
+		req.setAttribute("nv", nv);
+		
+		// 4. 상세 페이지로 전달
+		req.getRequestDispatcher("/views/notice/noticeDetail.jsp").forward(req, resp);
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+	
+}

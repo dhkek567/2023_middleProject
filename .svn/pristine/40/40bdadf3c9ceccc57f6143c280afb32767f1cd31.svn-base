@@ -1,0 +1,9 @@
+package kr.or.ddit.banban.dao;
+
+import kr.or.ddit.banban.vo.DonationListVO;
+
+public interface IDonationDao {
+	
+	public int insertDonation(DonationListVO dv);
+
+}

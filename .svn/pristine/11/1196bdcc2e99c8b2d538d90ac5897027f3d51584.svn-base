@@ -1,0 +1,60 @@
+package kr.or.ddit.banban.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
+//import kr.or.ddit.service.AtchFileServiceImpl;
+//import kr.or.ddit.service.IAtchFileService;
+//import kr.or.ddit.vo.AtchFileVO;
+import kr.or.ddit.banban.service.InterMemberService;
+import kr.or.ddit.banban.service.ImplMemberService;
+import kr.or.ddit.banban.vo.MemberVO;
+
+@WebServlet("/Mypage")
+public class MemberMypageController extends HttpServlet {
+	
+	private InterMemberService memService;
+	
+	public MemberMypageController() {
+		memService = ImplMemberService.getInstance();
+	}		
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+//		String memId = req.getParameter().("memId");
+		String memId = (String) req.getSession().getAttribute("loginCode");
+//		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+
+		MemberVO mv = memService.getMember(memId);
+//
+//		if (mv.getAtchFileId() != -1) {
+//			AtchFileVO atchFileVO = new AtchFileVO();
+//			atchFileVO.setAtchFileId(mv.getAtchFileId());
+//			List<AtchFileVO> atchFileList = fileService.getAtchFileList(atchFileVO);
+//			
+//			req.setAttribute("atchFileList", atchFileList);
+//		}
+
+		req.setAttribute("mv", mv);
+
+		req.getRequestDispatcher("/view/member/memberMypage.jsp");
+
+		req.getRequestDispatcher("/view/member/memberMypage.jsp").forward(req, resp);
+
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+
+}

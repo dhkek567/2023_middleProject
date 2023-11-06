@@ -1,0 +1,69 @@
+package kr.or.ddit.board.vo;
+
+public class CommentVO {
+	
+	private int bdComNo;
+	private int bdNo;
+	private int bdCateNo;
+	private String bdComCont;
+	private int bdComRepcnt;
+	private String memId;
+	
+	
+	
+	public CommentVO() {
+		super();
+	}
+
+	public int getBdComNo() {
+		return bdComNo;
+	}
+	
+	public void setBdComNo(int bdComNo) {
+		this.bdComNo = bdComNo;
+	}
+	
+	public int getBdNo() {
+		return bdNo;
+	}
+	
+	public void setBdNo(int bdNo) {
+		this.bdNo = bdNo;
+	}
+	
+	public int getBdCateNo() {
+		return bdCateNo;
+	}
+	
+	public void setBdCateNo(int bdCateNo) {
+		this.bdCateNo = bdCateNo;
+	}
+	
+	public String getBdComCont() {
+		return bdComCont;
+	}
+	
+	public void setBdComCont(String bdComCont) {
+		this.bdComCont = bdComCont;
+	}
+	
+	public int getBdComRepcnt() {
+		return bdComRepcnt;
+	}
+	
+	public void setBdComRepcnt(int bdComRepcnt) {
+		this.bdComRepcnt = bdComRepcnt;
+	}
+	
+	public String getMemId() {
+		return memId;
+	}
+	
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,126 @@
+<%-- <%@page import="kr.or.ddit.vo.AtchFileVO"%> --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="kr.or.ddit.banban.service.ImplPetService"%>
+<%@page import="kr.or.ddit.banban.service.InterPetService"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.banban.vo.PetVO"%>
+<%@page import="kr.or.ddit.banban.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<%
+	List<PetVO> petList = (List<PetVO>) request.getAttribute("petList");
+	System.out.println("petList 펫 마이 페이지 리스트 : " + petList);
+// List<AtchFileVO> atchFileList = (List<AtchFileVO>) request.getAttribute("atchFileList");
+%>
+
+<title>반려동물 정보 상세</title>
+</head>
+<body>
+	<a href="./index.jsp">[뒤로가기]</a>
+	<%
+		for (PetVO pv : petList) {
+	%>
+	<!-- 	<div class="col-xs-12"> -->
+	<!-- 		<input id="petNo" class="form-control" name="petNo"> -->
+	<!-- 	</div> -->
+	<<form action="<%=request.getContextPath()%>/PetUpdate"
+		method="get" enctype="multipart/form-data">
+	<input type="hidden" name="petNo" value="<%=pv.getPetNo()%>">
+	<table border="1">
+		<tr>
+			<td>이름 :</td>
+			<td><%=pv.getPetNm()%></td>
+		</tr>
+		<tr>
+			<td>반려동물 등록번호 :</td>
+			<td><%=pv.getPetRegno()%></td>
+		</tr>
+		<tr>
+			<td>반려인 :</td>
+			<td><%=pv.getMemNm()%></td>
+		</tr>
+		<tr>
+			<td>출생일 :</td>
+			<td><%=pv.getPetBir()%></td>
+		</tr>
+		<tr>
+			<td>성별 :</td>
+			<td>
+				<%
+					String gender = pv.getPetGender();
+				String neu = pv.getPetNeu();
+				if (gender.equals("M")) {
+				%>남 <%
+					if (neu.equals("Y") ) {
+				%> (중성화 완) <%
+					} else {
+				%> (중성화 미완) <%
+					}
+				} else if (gender.equals("F") ) {
+				%>여 <%
+					if (neu.equals("Y") ) {
+				%> (중성화 완) <%
+					} else {
+				%> (중성화 미완) <%
+					}
+				} else {
+				%>아직 잘 몰라요. <%
+					}
+				%>
+			</td>
+		</tr>
+		<tr>
+			<td>종류 :</td>
+			<td><%=pv.getPetKind()%></td>
+		</tr>
+		<tr>
+			<td>칩 종류 :</td>
+			<td><%=pv.getPetNeu()%></td>
+		</tr>
+		<tr>
+			<td>주소:</td>
+			<td><%=pv.getMemAddr()%></td>
+		</tr>
+		<tr>
+			<td>특징:</td>
+			<td><%=pv.getPetEtc()%></td>
+		</tr>
+		<td colspan="2">
+			<div class="col-xs-12">
+				<input type="submit" class="btn btn-primary col-xs-12"
+					id="petUpdateForm" value="[반려동물 정보 수정]">
+				<!-- 	</div> <a href="./PetUpdate">[반려동물 정보 수정]</a> -->
+				<a href="./Delete">[삭제]</a>
+				</form>
+		</td>
+		</tr>
+		<br>
+		<%
+			}
+		%>
+		
+		
+		<tr>
+			<!-- 			<td colspan="2"><a href="./list.do">[목록]</a> <a -->
+			<!-- 		<tr> -->
+			<!-- 			<td>첨부파일:</td> -->
+			<!-- 			<td> -->
+			<%-- 				<% --%>
+			// if (atchFileList != null) { // for (AtchFileVO fileVO :
+			atchFileList) {
+			<%-- 				%> --%>
+			<!-- 				<div> -->
+			<%-- 					<a href="<%=request.getContextPath() %>/comm/download.do?fileId=<%=fileVO.getAtchFileId() %>&fileSn=<%=fileVO.getFileSn() %>"><%=fileVO.getOrignlFileNm()%></a> --%>
+			<!-- 				</div>  -->
+			<%-- 				<% --%>
+			// } // }
+			<%--  				%> --%>
+			<!-- 			</td> -->
+			<!-- 		</tr> -->
+	</table>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<%@page import="kr.or.ddit.board.dao.WebMsgDao"%>
+<%@page import="kr.or.ddit.board.vo.WebMsgDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+	/* session.setAttribute("receive_id", "받는이");
+	WebMsgDTO dto = (WebMsgDTO)session.getAttribute("receive_id"); */
+	
+	session.setAttribute("receive_id", "받는이");
+									/* 받는이는 로그인한 사람의 아이디가 들어가도록 */
+	WebMsgDTO dto = new WebMsgDTO(session.getAttribute("receive_id").toString());
+	WebMsgDao dao = new WebMsgDao();
+	ArrayList<WebMsgDTO> listMsg = new ArrayList<WebMsgDTO>();
+	
+	/* System.out.println("1 : " + dto2.getReceive_id());
+	System.out.println("2 : " + dao); */
+	
+	if(dto != null) {
+		listMsg = dao.showMsgDTO(dto.getReceive_id());
+	}
+%>
+	<table border="1px solid">
+		<tr>
+			<th> 번호 </th>
+			<th> 보낸사람 </th>
+			<th> 받는사람 </th>
+			<th> 내용 </th>
+			<th> 발신일 </th>
+		</tr>
+		<% for(int i=0; i<listMsg.size(); i++){%>
+		<tr>
+			<td> <%=i+1 %> </td>
+			<td> <%=listMsg.get(i).getSend_id() %> </td>
+			<td> <%=listMsg.get(i).getReceive_id() %> </td>
+			<td> <%=listMsg.get(i).getMsg() %> </td>
+			<td> <%=listMsg.get(i).getM_date() %> </td>
+		</tr>
+		<%} %>
+	</table>
+</body>
+</html>

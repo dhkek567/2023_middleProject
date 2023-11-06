@@ -1,0 +1,108 @@
+package kr.or.ddit.board.vo;
+
+public class FileVO {
+	
+	private String bafId;
+	private String bafCdt;
+	private String bafUat;
+	private String bafdNo;
+	private String bafdCours;
+	private String bafdSavenm;
+	private String bafdOrinm;
+	private String bafdExtsn;
+	private String bafdCn;
+	private String bafdSize;
+	
+	
+	
+	
+	
+	public FileVO() {
+		super();
+	}
+	
+	public String getBafId() {
+		return bafId;
+	}
+	
+	public void setBafId(String bafId) {
+		this.bafId = bafId;
+	}
+	
+	public String getBafCdt() {
+		return bafCdt;
+	}
+	
+	public void setBafCdt(String bafCdt) {
+		this.bafCdt = bafCdt;
+	}
+	
+	public String getBafUat() {
+		return bafUat;
+	}
+	
+	public void setBafUat(String bafUat) {
+		this.bafUat = bafUat;
+	}
+	
+	public String getBafdNo() {
+		return bafdNo;
+	}
+	
+	public void setBafdNo(String bafdNo) {
+		this.bafdNo = bafdNo;
+	}
+	
+	public String getBafdCours() {
+		return bafdCours;
+	}
+	
+	public void setBafdCours(String bafdCours) {
+		this.bafdCours = bafdCours;
+	}
+	
+	public String getBafdSavenm() {
+		return bafdSavenm;
+	}
+	
+	public void setBafdSavenm(String bafdSavenm) {
+		this.bafdSavenm = bafdSavenm;
+	}
+	
+	public String getBafdOrinm() {
+		return bafdOrinm;
+	}
+	
+	public void setBafdOrinm(String bafdOrinm) {
+		this.bafdOrinm = bafdOrinm;
+	}
+	
+	public String getBafdExtsn() {
+		return bafdExtsn;
+	}
+	
+	public void setBafdExtsn(String bafdExtsn) {
+		this.bafdExtsn = bafdExtsn;
+	}
+	
+	public String getBafdCn() {
+		return bafdCn;
+	}
+	
+	public void setBafdCn(String bafdCn) {
+		this.bafdCn = bafdCn;
+	}
+	
+	public String getBafdSize() {
+		return bafdSize;
+	}
+	
+	public void setBafdSize(String bafdSize) {
+		this.bafdSize = bafdSize;
+	}
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,101 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="UTF-8">
+<title>문서</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style>
+#mainlogo {
+	width: 15%;
+	height: 15%;
+}
+
+#doMain {
+	width: 70%;
+	height: 70%;
+	opacity: 70%;
+}
+
+#span1 {
+	background-color: skyblue;
+	font-size: 50px;
+	font-style: italic;
+	color: yellow;
+}
+
+#span2 {
+	background-color: rgb(72, 154, 186);
+	font-size: 20px;
+	font-style: italic;
+	color: yellow;
+}
+
+#logo {
+	width: 50%;
+	height: 50%;
+}
+</style>
+</head>
+
+<body>
+[<%=session.getAttribute("loginCode")%>]
+	<center>
+		<a href="#"> <img id="mainlogo" src="views/donation/임지.png" alt="mainlogo">
+		</a> <br> <br>
+		<div>
+			<span id="span1">후원하기 </span><br>
+			<br> <span id="span2">반:반-하다와 함께 가는 길</span>
+		</div>
+		<br> <img id="doMain" src="views/donation/후원하기.jpg" alt="후원하기"> <img
+			id="logo" src="views/donation/는까지 로고.jpg" alt="로고"><br> <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp후원
+			수익의 50%를 유기동물 보호소에 후원하고 있습니다.<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp또한,
+			정기적으로 유기동물의 건강검진 및 환경 개선을 통하여<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp유기동물이
+			건강하고 행복하게 지낼 수 있도록 지원하고 있습니다.
+		</span> <br /> <br />
+		<form id="frm" name="frm" action="/sitedonation/PayCon" method="post">
+			<input type="number" name="amount" id="donationAmt" required />
+			<button type="submit" class="btn btn-info" role="button">후원하기</button>
+		</form>
+	</center>
+	<br />
+	<br />
+	<br />
+	<br />
+	
+	<script>
+	$('button').on('click',function(){
+		console.log("시작");
+		let loginCode = <%=session.getAttribute("loginCode")%>;
+		let amount = $('#donationAmt').value();
+		$.ajax({
+			type : 'post',
+			url : '/BanbanProject/PayCon', //서버의 위치를 url로 지정(서블릿일때는 @webservlet 경로)
+			data :{
+				loginCode : loginCode,
+				amount : amount
+			} ,
+			success : function(rst){
+				console.log("응답확인 >>" , rst);
+			},
+			error : function(xhr){
+				alert(xhr.status);
+			},
+			dataType : 'json'
+			
+		});
+		
+		
+		
+	})
+	
+	</script>
+</body>
+
+</html>

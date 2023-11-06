@@ -1,0 +1,127 @@
+package kr.or.ddit.banban.vo;
+
+import java.util.Date;
+
+
+public class BoardVO {
+	
+	private int bdNo;
+	private int bdCateNo;
+	private String bdTitle;
+	private String bdCont;
+	private Date bdReg;
+	private int bdHits;
+	private int bdRepCnt;
+	private String memId;
+	private int bafId;
+	
+	public BoardVO() {}
+
+	public BoardVO(int bdNo, int bdCateNo, String bdTitle, String bdCont, Date bdReg, int bdHits, int bdRepCnt,
+			String memId) {
+		super();
+		this.bdNo = bdNo;
+		this.bdCateNo = bdCateNo;
+		this.bdTitle = bdTitle;
+		this.bdCont = bdCont;
+		this.bdReg = bdReg;
+		this.bdHits = bdHits;
+		this.bdRepCnt = bdRepCnt;
+		this.memId = memId;
+	}
+
+
+
+	public BoardVO(int bdNo, int bdCateNo, String bdTitle, String bdCont, Date bdReg, int bdHits, int bdRepCnt,
+			String memId, int bafId) {
+		super();
+		this.bdNo = bdNo;
+		this.bdCateNo = bdCateNo;
+		this.bdTitle = bdTitle;
+		this.bdCont = bdCont;
+		this.bdReg = bdReg;
+		this.bdHits = bdHits;
+		this.bdRepCnt = bdRepCnt;
+		this.memId = memId;
+		this.bafId = bafId;
+	}
+
+
+
+	public int getBdNo() {
+		return bdNo;
+	}
+
+	public void setBdNo(int bdNo) {
+		this.bdNo = bdNo;
+	}
+
+	public int getBdCateNo() {
+		return bdCateNo;
+	}
+
+	public void setBdCateNo(int bdCateNo) {
+		this.bdCateNo = bdCateNo;
+	}
+
+	public String getBdTitle() {
+		return bdTitle;
+	}
+
+	public void setBdTitle(String bdTitle) {
+		this.bdTitle = bdTitle;
+	}
+
+	public String getBdCont() {
+		return bdCont;
+	}
+
+	public void setBdCont(String bdCont) {
+		this.bdCont = bdCont;
+	}
+
+	public Date getBdReg() {
+		return bdReg;
+	}
+
+	public void setBdReg(Date bdReg) {
+		this.bdReg = bdReg;
+	}
+
+	public int getBdHits() {
+		return bdHits;
+	}
+
+	public void setBdHits(int bdHits) {
+		this.bdHits = bdHits;
+	}
+
+	public int getBdRepCnt() {
+		return bdRepCnt;
+	}
+
+	public void setBdRepCnt(int bdRepCnt) {
+		this.bdRepCnt = bdRepCnt;
+	}
+
+	public String getMemId() {
+		return memId;
+	}
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	public int getBafId() {
+		return bafId;
+	}
+
+	public void setBafId(int bafId) {
+		this.bafId = bafId;
+	}
+
+
+	
+	
+	
+}

@@ -1,0 +1,60 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자유게시글 등록</title>
+<link href="../css/css.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<form action="freeInsert.do"  id="test" method="post">
+		<div class="board_wrap">
+        <div class="board_title">
+            <strong>자유게시글</strong>
+            <p>자유게시글 등록할 수 있는 공간입니다.</p>
+        </div>
+        <div class="board_write_wrap">
+            <div class="board_write">
+                <div class="title">
+                    <dl>
+                        <dt>카테고리</dt>
+                        <dd>
+                        	<select name="bdCateNo" onchange="window.open(this.value)">
+                        		<option value="<%=request.getContextPath() %>/board/noticeInsert.do">공지사항</option>
+                        		<option value="<%=request.getContextPath() %>/board/askInsert.do">진료문의</option>
+                        		<option value="<%=request.getContextPath() %>/board/reviewInsert.do">리뷰</option>
+                        		<option value="<%=request.getContextPath() %>/board/donInsert.do">나눔</option>
+                        		<option value="<%=request.getContextPath() %>/board/freeInsert.do">자유</option>
+                        		<option value="<%=request.getContextPath() %>/board/advInsert.do">홍보</option>
+                        	</select>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="info">
+                    <dl>
+                        <dt>제목</dt>
+                        <dd><input type="text" placeholder="제목 입력" name="bdTitle"></dd>
+                    </dl>
+                </div>
+                <div class="cont">
+                    <textarea placeholder="내용 입력" name="bdCont"></textarea>
+                </div>
+                <div class="file">
+                	<br><br>
+                    <dl>
+                        <dt>첨부파일</dt>
+                        <dd><input type="file" name="atchFile" placeholder="첨부파일"></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="bt_wrap">
+<!--             	<input type="submit" value="게시글 작성"> -->
+                <a class="test" type="submit" class="on" onclick="document.getElementById('test').submit();" >등록</a>
+                <a href="FreeList.do">취소</a>
+            </div>
+        </div>
+    </div>
+	</form>
+</body>
+</html>

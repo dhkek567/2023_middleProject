@@ -1,0 +1,107 @@
+<%-- <%@page import="kr.or.ddit.vo.AtchFileVO"%> --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="kr.or.ddit.banban.service.ImplPetService"%>
+<%@page import="kr.or.ddit.banban.service.InterPetService"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.banban.vo.PetVO"%>
+<%@page import="kr.or.ddit.banban.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<%
+	List<PetVO> petList = (List<PetVO>) request.getAttribute("petList");
+	
+// List<AtchFileVO> atchFileList = (List<AtchFileVO>) request.getAttribute("atchFileList");
+%>
+
+<title>반려동물 정보 상세</title>
+</head>
+<body>
+<% 
+System.out.println("petList : " + petList);
+	for(PetVO pv : petList){
+%>
+	<table border="1">
+		<tr>
+			<td>반려동물 등록번호 : </td> 
+			<td><%=pv.getPetRegno()%></td> 
+		</tr>
+		<tr>
+			<td>이름 : </td>
+			<td><%=pv.getPetNm()%></td>
+		</tr>
+		<tr>
+			<td>반려인 : </td>
+			<td><%=pv.getMemNm()%></td>
+		</tr>
+		<tr>
+			<td>출생일 : </td>
+			<td><%=pv.getPetBir()%></td>
+		</tr>
+		<tr>
+			<td>성별 : </td>
+			<td><% char gender = pv.getPetGender();
+					char neu = pv.getPetNeu();
+			if(gender == 'M'){
+			%>남 
+			<%if(neu == 'Y'){%>
+			(중성화 완)
+			<%}else{%>
+			(중성화 미완)
+			<% }
+			}else if(gender == 'F'){ 
+			%>여 
+			<%if(neu == 'Y'){%>
+			(중성화 완)
+			<%}else{%>
+			(중성화 미완)
+			<% }
+			}else{
+			%>아직 잘 몰라요.
+			<%} %>
+			</td>
+		</tr>
+		<tr>
+			<td>종류 : </td>
+			<td><%=pv.getPetKind()%></td>
+		</tr>
+		<tr>
+			<td>주소:</td>
+			<td><%=pv.getMemAddr()%></td>
+		</tr>
+<td colspan="2">
+				<a href="./update.do?memId=<%=pv.getPetNo()%>">[반려동물 정보 수정]</a> 
+				<a href="./Delete?memId=<%=pv.getPetNo()%>">[삭제]</a></td>
+		</tr>
+		<br>
+		<%} %>
+		
+		<tr>
+<!-- 			<td colspan="2"><a href="./list.do">[목록]</a> <a -->
+<!-- 		<tr> -->
+<!-- 			<td>첨부파일:</td> -->
+<!-- 			<td> -->
+<%-- 				<% --%>
+// 					if (atchFileList != null) {
+// 					for (AtchFileVO fileVO : atchFileList) {
+<%-- 				%> --%>
+<!-- 				<div> -->
+<%-- 					<a href="<%=request.getContextPath() %>/comm/download.do?fileId=<%=fileVO.getAtchFileId() %>&fileSn=<%=fileVO.getFileSn() %>"><%=fileVO.getOrignlFileNm()%></a> --%>
+<!-- 				</div>  -->
+<%-- 				<% --%>
+//  					}
+// 				 }
+<%--  				%> --%>
+<!-- 			</td> -->
+<!-- 		</tr> -->
+		<tr>
+<!-- 			<td colspan="2"><a href="./list.do">[목록]</a> <a -->
+<%-- 				href="./update.do?memId=<%=mv.getMemId()%>">[회원정보 수정]</a> <a --%>
+<%-- 				href="./delete.do?memId=<%=mv.getMemId()%>">[회원정보 삭제]</a></td> --%>
+		</tr>
+	</table>
+</body>
+</html>

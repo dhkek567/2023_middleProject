@@ -1,0 +1,82 @@
+<%-- <%@page import="kr.or.ddit.vo.AtchFileVO"%> --%>
+<%@page import="kr.or.ddit.banban.service.ImplMemberService"%>
+<%@page import="kr.or.ddit.banban.service.InterMemberService"%>
+<%@page import="kr.or.ddit.banban.dao.InterMemberDao"%>
+<%@page import="kr.or.ddit.banban.dao.ImplMemberDao"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.banban.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<%
+	MemberVO mv = (MemberVO) request.getAttribute("mv");
+// List<AtchFileVO> atchFileList = (List<AtchFileVO>) request.getAttribute("atchFileList");
+%>
+
+
+<title>회원 정보 상세</title>
+</head>
+<body>
+<div>
+<!-- <form method="get" action="/Team4MiddleProject/MemberMypage"> -->
+<img alt="logo" src="<%=request.getContextPath()%>/img/임지.png">
+</div>
+
+	<table border="3">
+		<tr>
+			<td>아이디 : </td>
+			<td><%=mv.getMemId()%></td>
+		</tr>
+		<tr>
+			<td>이름 : </td>
+			<td><%=mv.getMemNm()%></td>
+		</tr>
+		<tr>
+			<td>전화번호 : </td>
+			<td><%=mv.getMemTel()%></td>
+		</tr>
+		<tr>
+			<td>닉네임 : </td>
+			<td><%=mv.getMemNic()%></td>
+		</tr>
+		<tr>
+			<td>생년월일 : </td>
+			<td><%=mv.getMemBir()%></td>
+		</tr>
+		<tr>
+			<td>이메일 : </td>
+			<td><%=mv.getMemEmail()%></td>
+		</tr>
+		<tr>
+			<td>주소 : </td>
+			<td><%=mv.getMemAddr()%></td>
+		</tr>
+<!-- 		<tr> -->
+<!-- 			<td>첨부파일:</td> -->
+<!-- 			<td> -->
+<%-- 				<% --%>
+// 					if (atchFileList != null) {
+// 					for (AtchFileVO fileVO : atchFileList) {
+<%-- 				%> --%>
+<!-- 				<div> -->
+<%-- 					<a href="<%=request.getContextPath() %>/comm/download.do?fileId=<%=fileVO.getAtchFileId() %>&fileSn=<%=fileVO.getFileSn() %>"><%=fileVO.getOrignlFileNm()%></a> --%>
+<!-- 				</div>  -->
+<%-- 				<% --%>
+//  					}
+// 				 }
+<%--  				%> --%>
+<!-- 			</td> -->
+<!-- 		</tr> -->
+		<tr>
+<!-- 			<td colspan="2"><a href="./list.do">[목록]</a> <a -->
+<td colspan="2">
+				<a href="./update">[회원정보 수정]</a> 
+				<a href="./Delete">[회원정보 탈퇴]</a></td>
+		</tr>
+	</table>
+</body>
+</html>

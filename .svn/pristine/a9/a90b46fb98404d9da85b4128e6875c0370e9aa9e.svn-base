@@ -1,0 +1,60 @@
+package kr.or.ddit.banban.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+//import kr.or.ddit.service.AtchFileServiceImpl;
+//import kr.or.ddit.service.IAtchFileService;
+//import kr.or.ddit.vo.AtchFileVO;
+import kr.or.ddit.banban.service.InterMemberService;
+import kr.or.ddit.banban.service.InterPetService;
+import kr.or.ddit.banban.service.ImplMemberService;
+import kr.or.ddit.banban.service.ImplPetService;
+import kr.or.ddit.banban.vo.MemberVO;
+import kr.or.ddit.banban.vo.PetVO;
+
+@WebServlet("/PetMypage")
+public class PetMypageController extends HttpServlet {
+	
+	private InterPetService petService;
+	
+	public PetMypageController() {
+		petService = ImplPetService.getInstance();
+	}	
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		String memId = (String) req.getSession().getAttribute("memId");
+		
+//		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+
+		List<PetVO> petList = petService.getAllPet(memId);
+//		if (mv.getAtchFileId() != -1) {
+//			AtchFileVO atchFileVO = new AtchFileVO();
+//			atchFileVO.setAtchFileId(mv.getAtchFileId());
+//			List<AtchFileVO> atchFileList = fileService.getAtchFileList(atchFileVO);
+//			
+//			req.setAttribute("atchFileList", atchFileList);
+//		}
+
+		req.setAttribute("petList", petList);
+
+		req.getRequestDispatcher("/view/pet/petMypage.jsp");
+
+		req.getRequestDispatcher("/view/pet/petMypage.jsp").forward(req, resp);
+
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+
+}

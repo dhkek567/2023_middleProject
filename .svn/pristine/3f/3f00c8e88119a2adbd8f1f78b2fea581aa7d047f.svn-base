@@ -1,0 +1,92 @@
+<%@page import="kr.or.ddit.banban.vo.BoardVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	List<BoardVO> ncList = (List<BoardVO>) request.getAttribute("ncList");
+
+	String msg = session.getAttribute("msg") == null ? "" : (String) session.getAttribute("msg");
+	session.removeAttribute("msg");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="<%=request.getContextPath()%>/css/css.css" rel="stylesheet" type="text/css">
+<title>공지사항 목록</title>
+
+</head>
+<body>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>공지사항</strong>
+			<p>공지사항을 모아놓은 공간입니다.</p>
+		</div>
+
+		<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="top">
+					<div class="bdNo">글번호</div>
+<!-- 					<div class="bdCateNo">카테고리번호</div> -->
+					<div class="bdTitle">제목</div>
+<!-- 					<div class="bdCont">내용</div> -->
+					<div class="bdReg">작성일</div>
+<!-- 					<div class="bdHits">조회수</div> -->
+<!-- 					<div class="bdRepCnt">누적신고수</div> -->
+					<div class="memId">회원ID</div>
+<!-- 					<div class="bafId">첨부파일</div> -->
+				</div>
+
+				<%
+					int ncSize = ncList.size();
+								if (ncSize == 0) {
+									
+								} else {
+				// 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+								
+							for (BoardVO nv : ncList) {
+				%>
+				<div>
+					<div class="bdNo"><%=nv.getBdNo()%></div>
+<%-- 					<div class="bdCateNo"><%=nv.getBdCateNo() %></div> --%>
+					<div class="bdTitle"><%=nv.getBdTitle()%></div>
+<%-- 					<div class="bdCont"><%=nv.getBdCont()%> --%>
+						<a href="./noticeDetail.do?bdNo=<%=nv.getBdNo()%>"><%=nv.getBdCont()%></a>
+					</div>
+					<div class="bdReg"><%=nv.getBdReg()%></div>
+<%-- 					<div class="bdHits"><%=nv.getBdHits()%></div> --%>
+<%-- 					<div class="bdRepCnt"><%=nv.getBdRepCnt()%></div> --%>
+					<div class="memId"><%=nv.getMemId()%></div>
+<%-- 					<div class="bafId"><%=nv.getBafId()%></div> --%>
+				</div>
+
+				<%
+					}
+				}
+					if (msg.equals("성공")) {
+				%>
+
+				<script>
+					alert('정상적으로 처리되었습니다.');
+				</script>
+				<%
+					}
+				%>
+			</div>
+			<div class="board_page">
+				<a href="#" class="bt first"><</a> <a href="#" class="bt prev"><</a>
+				<a href="#" class="num on">1</a> <a href="#" class="num">2</a> <a
+					href="#" class="num">3</a> <a href="#" class="num">4</a> <a
+					href="#" class="num">5</a> <a href="#" class="bt next">></a> <a
+					href="#" class="bt last">>></a>
+			</div>
+			<div class="bt_wrap">
+				<a href="insert.do">게시글 작성</a>
+				<!--<a href="#">수정</a>-->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

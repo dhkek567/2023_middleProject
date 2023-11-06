@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div> 테스트섭 </div>
+	<form action="./MsgServiceCon" method="get">
+	    보낸사람 : <input type="text" name="send_id"><br>
+	    받는사람 : <input type="text" name="receive_id"><br>
+   	    내용: <textarea rows="10" cols="30" name="msg"></textarea> <br>
+    <input type="submit">쪽지보내기</input>
+	</form>	
+	<!-- <button><a href="./MsgServiceCon">쪽지함</a></button> -->
+	
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+		function sendTxt() {
+		$('input').on('click', function(){
+			location.href = "./MsgServiceCon";
+		});
+	}
+	</script> -->
+ 	
+</body>
+</html>

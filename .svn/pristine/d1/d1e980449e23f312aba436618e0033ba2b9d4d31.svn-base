@@ -1,0 +1,103 @@
+<%@page import="kr.or.ddit.banban.vo.PetVO"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="kr.or.ddit.banban.vo.MemberVO"%>
+<%-- <%@page import="kr.or.ddit.comm.vo.AtchFileVO"%> --%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	MemberVO mv = (MemberVO) request.getAttribute("mv");
+	PetVO pv = (PetVO) request.getAttribute("pv");
+// 	List<AtchFileVO> atchFileList = (List<AtchFileVO>) request.getAttribute("atchFileList");
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원정보 변경</title>
+</head>
+<body>
+	<!-- 절대 경로는 애플리케이션 이름(< %=request.getContextPath() % >)을 넣어줘야한다. -->
+	<form action="<%=request.getContextPath()%>/PetUpdate" method="post"
+		enctype="multipart/form-data">
+		<input type="hidden" name="petNo" value="<%=pv.getPetNo()%>">
+		<%-- 		<input type="hidden" name="atchFileId" value="<%=mv.getAtchFileId() %>"> --%>
+		<table>
+			<table border="3">
+				
+				<tr>
+					<td>이름 :</td>
+					<td><input type="text" name="petNm" value="<%=pv.getPetNm()%>"></td>
+				</tr>
+				<tr>
+					<td>주민번호(등록번호) :</td>
+					<td><input type="text" name="petRegno"
+						value="<%=pv.getPetRegno()%>"></td>
+				</tr>
+				<tr>
+					<td>반려인 :</td>
+					<td><%=pv.getMemNm()%></td>
+				</tr>
+				<tr>
+					<td>출생일 :</td>
+					<td><input type="text" name="petBir"
+						value="<%=pv.getPetBir()%>"></td>
+				</tr>
+				<tr>
+					<td>성별 :</td>
+					<td><input type="text" name="petGender"
+						value="<%=pv.getPetGender()%>"></td>
+				</tr>
+				<tr>
+					<td>종류 :</td>
+					<td><input type="text" name="petKind"
+						value="<%=pv.getPetKind()%>"></td>
+				</tr>
+				<tr>
+					<td>칩 종류 :</td>
+					<td><input type="text" name="petChip"
+						value="<%=pv.getPetChip()%>"></td>
+				</tr>
+				<tr>
+					<td>중성화여부 :</td>
+					<td><input type="text" name="petNeu"
+						value="<%=pv.getPetNeu()%>"></td>
+				</tr>
+				<tr>
+					<td>주소 :</td>
+					<td><%=pv.getMemAddr()%></td>
+				</tr>
+				<tr>
+					<td>특징 :</td>
+					<td><%=pv.getPetEtc()%></td>
+				</tr>
+				<!-- 				<tr> -->
+				<!-- 					<td>기존 첨부파일:</td> -->
+				<!-- 					<td> -->
+				<%-- 						<% --%>
+				// if (atchFileList != null) { // for (AtchFileVO fileVO :
+				atchFileList) {
+				<%-- 						%> --%>
+				<!-- 						<div> -->
+				<!-- 							<a -->
+				<%-- 								href="<%=request.getContextPath()%>/comm/download.do?fileId=<%=fileVO.getAtchFileId()%>&fileSn=<%=fileVO.getFileSn()%>"><%=fileVO.getOrignlFileNm()%>"><%=fileVO.getOrignlFileNm()%></a> --%>
+				<%-- 						</div> <% --%>
+				// }
+				<!--  } -->
+				<!--  %> -->
+				<!-- 					</td> -->
+				<!-- 				</tr> -->
+				<!-- 				<tr> -->
+				<!-- 					<td>새로운 첨부파일:</td> -->
+				<!-- 					<td><input type="file" name="atchFile" multiple="multiple"></td> -->
+				<!-- 				</tr> -->
+				<!-- 				<tr> -->
+			</table>
+			<input type="submit" value="회원정보 수정">
+
+			</form>
+</body>
+</html>

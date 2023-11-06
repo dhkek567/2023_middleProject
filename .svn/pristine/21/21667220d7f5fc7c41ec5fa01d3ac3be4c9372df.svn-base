@@ -1,0 +1,86 @@
+package kr.or.ddit.board.dao;
+
+import java.util.List;
+
+import kr.or.ddit.banban.vo.MemberVO;
+import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.CommentVO;
+import kr.or.ddit.board.vo.ReportVO;
+
+public interface IBoardDao {
+	
+	/**
+	 * 모든 게시글 각 게시판 List.jsp로 가져오기
+	 * @return List<BoardVO>
+	 */
+	List<BoardVO> getAllBoard(int bdCateNo);
+
+	public BoardVO getBoardOne(int bdNo);
+	
+	public List<CommentVO> getAllComment(int bdNo);
+	
+	public int insertBoard (BoardVO bv);
+	
+	public int deleteBoard(int bdNo, String memId);
+	
+	public int updateBoard(BoardVO bv);
+	
+	public int insertBoardComment(CommentVO cv);
+	
+	int deleteBoardComment(int bdComNo, String memId);
+	
+	
+	
+	
+	
+
+	public boolean checkNotice(int bdNo);
+	
+	public int deleteNotice(int bdNo);
+
+	public List<BoardVO> getNotice(BoardVO bv);
+
+	
+	public BoardVO getWriterCate(BoardVO bv);
+
+	public List<CommentVO> getAllNoticeComment();
+
+
+	public List<CommentVO> getAllNoticeComment(int bdNo, int bdCateNo);
+
+	public BoardVO getNoticeOne(int bdNo, int bdCateNo);
+
+	public List<BoardVO> getAllNotice(int bdCateNo);
+
+
+
+	public BoardVO getNoticeOne(int bdNo, String memId);
+
+	public List<BoardVO> selectMyBoard(String memId);
+	
+	public int insertReportNotice(ReportVO rv);
+	
+	public int insertReportComment(ReportVO rv);
+
+	public CommentVO getCommentOne(int bdComNo);
+
+	public BoardVO getNoticeOne1(String memId, int bdNo);
+
+	public ReportVO getNoticeOne1(int bdNo);
+
+	public void insertbdComRepcnt(int bdComNo);
+
+	public void insertMemRepcnt(String memId);
+
+	public void insertbdRepcnt(int bdNo);
+
+	public List<BoardVO> getAllReview();
+
+	
+
+
+
+
+	
+
+}

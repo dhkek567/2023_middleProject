@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<insert id="insertNotice"
+		parameterType="kr.or.ddit.board.vo.BoardVO">
+
+		insert into board 
+		(BD_NO, BD_CATE_NO, BD_TITLE, BD_CONT, BD_REG, MEM_ID)
+		values
+		(BD_seq.nextVal, #{bdCateNo}, #{bdTitle}, #{bdCont}, sysdate, #{memId})
+	
+	</insert>
+
+	<update id="updateNoitce"
+		parameterType="kr.or.ddit.board.vo.BoardVO">
+
+		UPDATE board
+		SET
+<!--         BD_CATE_NO = #{bdCateNo}, -->
+        BD_TITLE = #{bdTitle},
+        <if test="bafId > 0">
+        	BAF_ID = #{bafId},
+        </if>
+        BD_CONT = #{bdCont}
+		WHERE BD_NO = #{bdNo}
+
+	</update>
+
+	<delete id="deleteNotice" parameterType="int">
+		
+		DELETE from board
+		WHERE BD_NO = #{bdNo}
+		
+	</delete>
+
+	<resultMap type="kr.or.ddit.board.vo.BoardVO" id="ncMap">
+		<result column="BD_NO" property="bdNo" />
+		<result column="BD_CATE_NO" property="bdCateNo" />
+		<result column="BD_TITLE" property="bdTitle" />
+		<result column="BD_CONT" property="bdCont" />
+		<result column="BD_HITS" property="bdHits" />
+		<result column="BD_REPCNT" property="bdRepCnt" />
+		<result column="MEM_ID" property="memId" />
+		<result column="BD_REG" property="bdReg" />
+		<result column="BAF_ID" property="fileId" />
+	</resultMap>
+		
+	<select id="getAllNotice" resultType="kr.or.ddit.board.vo.BoardVO">
+		
+		SELECT 
+    	b.BD_NO	as bdNo,
+	    b.BD_TITLE as bdTitle,
+	    m.MEM_NIC as memNic,
+	    b.BD_REG as bdReg
+
+		FROM board b, member m
+		WHERE b.mem_id = m.mem_id and BD_CATE_NO = 100
+		
+	</select>
+	
+	<select id="getAllNoticeComment" resultType="kr.or.ddit.board.vo.CommentVO">
+		
+		SELECT 
+		c.BD_COM_NO as bdComNo,
+		c.BD_NO as bdNo,
+		c.BD_CATE_NO as bdCateNo,
+		c.BD_COM_CONT as bdComCont,
+		c.BD_COM_REPCNT as bdComRepcnt,
+		m.MEM_NIC as memNic,
+		c.BD_COM_REG as bdComReg
+		FROM BOARD_COMMENT c, member m
+		WHERE c.mem_id = m.mem_id and BD_CATE_NO = 100 and BD_NO = 87
+		
+	</select>
+	
+	<select id="getWriterCate" resultType="kr.or.ddit.board.vo.BoardVO">
+		
+		SELECT 
+    	BD_CATE_NO as bdCateNo,
+    	MEM_ID as memId
+    	from board
+    	where bdCateNo = #{bdCateNo} and memId = #{memId}
+		
+	</select>
+	
+	<select id="getAllNotice2" resultMap="ncMap">
+		
+		SELECT 
+		BD_NO as bdNo,
+		BD_CATE_NO as bdCateNo,
+		BD_TITLE as bdTitle,
+		BD_CONT as bdCont,
+		BD_REG as bdReg,
+		BD_HITS as bdHits,
+		BD_REPCNT as bdRepCnt,
+		MEM_ID as memId,
+		BAF_ID as fileId
+		FROM board
+		
+	</select>
+
+	<select id="getBoard" parameterType="String"
+		resultType="kr.or.ddit.board.vo.BoardVO">
+		SELECT board_no board_no
+		, board_title board_title
+		, board_writer board_writer
+		, board_content board_content
+		, board_date regDt
+		FROM jdbc_board
+		WHERE 1=1
+		<if test='board_no != null and board_no != ""'>
+			and board_no = #{board_no}
+		</if>
+		<if test='board_title != null and board_title != ""'>
+			and board_title = #{board_title}
+		</if>
+		<if test='board_writer != null and board_writer != ""'>
+			and board_writer = #{board_writer}
+		</if>
+		<if test='board_content != null and board_content != ""'>
+			and board_content like '%' || #{board_content} || '%'
+		</if>
+		
+	</select>
+
+	<select id="getNoticeOne" parameterType="hashMap"
+		resultType="kr.or.ddit.board.vo.BoardVO">
+		
+		select 
+    	b.BD_NO as bdNo,
+    	b.BD_TITLE      as bdTitle,
+    	b.BD_CONT    as bdCont,
+    	b.BD_REG    as bdReg,
+    	b.BD_HITS    as bdHits,
+    	b.BD_REPCNT    as bdRepCnt,
+    	m.MEM_NIC       as memNic,
+    	b.BAF_ID       as bafId
+		from board b, member m
+		where b.mem_id = m.mem_id and bd_no = #{bdNo}
+		
+	</select>
+
+	<select id="checkBoard" parameterType="String" resultType="int">
+		SELECT count(*) as cnt
+		FROM jdbc_board
+		WHERE board_no = #{bdNo}
+	</select>
+
+	
+</mapper>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<body>
+	<a href="/views/msg/getAllMessage.jsp"><button>받은쪽지함</button></a>
+	<a href="/views/msg/insertMsg.jsp"><button>보내기</button></a>
+	<a href="/views/msg/sendAllMessage.jsp"><button>보낸쪽지함</button></a>
+</body>
+</html>

@@ -1,0 +1,68 @@
+package kr.or.ddit.banban.service;
+
+import java.util.List;
+
+import kr.or.ddit.banban.dao.IBoardDao;
+import kr.or.ddit.banban.dao.BoardDaoImpl;
+import kr.or.ddit.banban.vo.BoardVO;
+
+public class BoardServiceImpl implements IBoardService {
+
+	private IBoardDao bdDao;
+	
+	public BoardServiceImpl() {
+		bdDao = BoardDaoImpl.getInstance();
+	}
+	
+	private static IBoardService bdService;
+	
+	public static IBoardService getInstance() {
+		if(bdService == null)
+			bdService = new BoardServiceImpl();
+		return bdService;	
+	}
+	
+
+	@Override
+	public int registerNotice(BoardVO bv) {
+		return bdDao.insertNotice(bv);
+	}
+
+	@Override
+	public boolean checkNotice(int bdNo) {
+		return false;
+	}
+
+	@Override
+	public List<BoardVO> getAllNotice() {
+		return bdDao.getAllNotice();
+	}
+
+	@Override
+	public int modifyNotie(BoardVO bv) {
+		return 0;
+	}
+
+	@Override
+	public int removeNotice(int bdNo) {
+		return 0;
+	}
+
+	@Override
+	public List<BoardVO> getNotice(BoardVO nv) {
+		return bdDao.getNotice(nv);
+	}
+
+	@Override
+	public BoardVO getNoticeOne(int bdNo) {
+		return bdDao.getNoticeOne(bdNo);
+	}
+
+
+	@Override
+	public BoardVO getWriterCate(BoardVO bv) {
+		return bdDao.getWriterCate(bv);
+		
+	}
+	
+}

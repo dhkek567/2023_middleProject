@@ -1,0 +1,135 @@
+package kr.or.ddit.banban.vo;
+
+import java.sql.Date;
+
+public class PetVO {
+	private String petNo;
+	private String memId;
+	private String memNm;
+	private String petNm;
+	private int petRegno;
+	private char prtChip;
+	private String petKind;
+	private char petGender;
+	private char petNeu;
+	private Date petBir;
+	private String petEtc;
+	private String memAddr;
+	
+	public PetVO() {}
+	
+	
+	
+	public String getMemAddr() {
+		return memAddr;
+	}
+
+
+
+	public void setMemAddr(String memAddr) {
+		this.memAddr = memAddr;
+	}
+
+
+
+	public String getMemNm() {
+		return memNm;
+	}
+
+
+
+	public void setMemNm(String memNm) {
+		this.memNm = memNm;
+	}
+
+
+
+	public String getMemId() {
+		return memId;
+	}
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	public String getPetNo() {
+		return petNo;
+	}
+
+	public void setPetNo(String petNo) {
+		this.petNo = petNo;
+	}
+
+	public String getPetNm() {
+		return petNm;
+	}
+
+	public void setPetNm(String petNm) {
+		this.petNm = petNm;
+	}
+
+	public int getPetRegno() {
+		return petRegno;
+	}
+
+	public void setPetRegno(int petRegno) {
+		this.petRegno = petRegno;
+	}
+
+	public char getPrtChip() {
+		return prtChip;
+	}
+
+	public void setPrtChip(char prtChip) {
+		this.prtChip = prtChip;
+	}
+
+	public String getPetKind() {
+		return petKind;
+	}
+
+	public void setPetKind(String petKind) {
+		this.petKind = petKind;
+	}
+
+	public char getPetGender() {
+		return petGender;
+	}
+
+	public void setPetGender(char petGender) {
+		this.petGender = petGender;
+	}
+
+	public char getPetNeu() {
+		return petNeu;
+	}
+
+	public void setPetNeu(char petNeu) {
+		this.petNeu = petNeu;
+	}
+
+	public Date getPetBir() {
+		return petBir;
+	}
+
+	public void setPetBir(Date petBir) {
+		this.petBir = petBir;
+	}
+
+	public String getPetEtc() {
+		return petEtc;
+	}
+
+	public void setPetEtc(String petEtc) {
+		this.petEtc = petEtc;
+	}
+
+	@Override
+	public String toString() {
+		return "PetVO [petNo=" + petNo + ", petNm=" + petNm + ", petRegno=" + petRegno + ", prtChip=" + prtChip
+				+ ", petKind=" + petKind + ", petGender=" + petGender + ", petNeu=" + petNeu + ", petBir=" + petBir
+				+ ", petEtc=" + petEtc + "]";
+	}
+	
+	
+}

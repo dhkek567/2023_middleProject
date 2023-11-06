@@ -1,0 +1,100 @@
+package kr.or.ddit.banban.controller;
+
+import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import kr.or.ddit.banban.service.ImplMemberService;
+import kr.or.ddit.banban.service.ImplPetService;
+import kr.or.ddit.banban.service.InterMemberService;
+import kr.or.ddit.banban.service.InterPetService;
+import kr.or.ddit.banban.vo.MemberVO;
+import kr.or.ddit.banban.vo.PetVO;
+//기존에 있는 정보를 수정하다보니 기존에 있는 데이터를 보여줘야 한다.
+@MultipartConfig
+@WebServlet("/PetUpdate")
+public class UpdatePetController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	String memId = (String) req.getSession().getAttribute("loginCode");
+		String petNo = req.getParameter("petNo");
+		InterPetService petService = ImplPetService.getInstance();
+//		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+		
+		PetVO pv = petService.getPet(petNo);
+		
+//		if (mv.getAtchFileId() != -1) {
+//			AtchFileVO atchFileVO = new AtchFileVO();
+//			atchFileVO.setAtchFileId(mv.getAtchFileId());
+//			List<AtchFileVO> atchFileList = fileService.getAtchFileList(atchFileVO);
+//			
+//			req.setAttribute("atchFileList", atchFileList);
+//		}
+		
+		req.setAttribute("pv", pv);
+		System.out.println("업데이트 컨트롤러 get pv : "+pv);
+		req.getRequestDispatcher("/views/pet/petUpdate.jsp").forward(req, resp);
+	
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+	
+		String memId = (String) req.getSession().getAttribute("loginCode");
+		String petNo = req.getParameter("petNo");
+		String petRegno = req.getParameter("petRegno");
+		String petNm = req.getParameter("petNm");
+		String petBir = req.getParameter("petBir");
+		String petChip = req.getParameter("petChip");
+		String petGender =  req.getParameter("petGender");
+		String petNeu = req.getParameter("petNeu");
+		String petKind = req.getParameter("petKind");
+		String petEtc = req.getParameter("petEtc");
+		
+//		String atchFileId = req.getParameter("atchFileId");
+		InterPetService petService = ImplPetService.getInstance();
+//		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+		
+//		AtchFileVO atchFileVO = null;
+		
+//		atchFileVO = fileService.saveAtchFileList(req); // 첨부파일 저장
+		
+		PetVO pv = new PetVO(petNo, memId, petNm, petRegno, petChip, petKind, petGender, petNeu, petBir, petEtc);
+		
+		//		if(atchFileVO == null) { //새로운 첨부파일이 존재하지 않으면... 기존 파일 유지
+//			mv.setAtchFileId(Long.parseLong(atchFileId));
+//		}else {
+//			mv.setAtchFileId(atchFileVO.getAtchFileId());
+//		}
+		
+		int cnt = petService.modifyPet(pv);
+		
+		String msg = "";
+		if(cnt > 0) {
+			//성공
+			msg = "성공";
+		}else {
+			//실패
+			msg = "실패";
+		}
+		
+		HttpSession httpSesion = req.getSession();
+		httpSesion.setAttribute("msg", msg);
+		
+		resp.sendRedirect(req.getContextPath() + "/PetMypage");
+		
+		
+	}
+}

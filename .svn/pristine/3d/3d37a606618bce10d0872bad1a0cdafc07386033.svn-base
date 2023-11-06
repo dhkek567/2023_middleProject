@@ -1,0 +1,246 @@
+<%-- <%@page import="kr.or.ddit.vo.AtchFileVO"%> --%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="kr.or.ddit.banban.service.MemberServiceImpl"%>
+<%@page import="kr.or.ddit.banban.service.IMemberService"%>
+<%@page import="kr.or.ddit.banban.dao.IMemberDao"%>
+<%@page import="kr.or.ddit.banban.dao.MemberDaoImpl"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.or.ddit.banban.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<%
+	MemberVO mv = (MemberVO) request.getAttribute("mv");
+%>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<title>회원정보 수정</title>
+<style>
+html {
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding-top: 50px;
+	padding-bottom: 40px;
+	background-repeat: no-repeat;
+}
+
+.card {
+	margin: 0 auto;
+	float: none;
+	margin-bottom: 10px;
+	border: none;
+}
+
+b {
+	border: none;
+	width: 25rem;
+	margin: auto;
+	font-size: 28px;
+}
+
+.form-control {
+	display: inline;
+	height: 40px;
+	width: 400px;
+	padding: 5px;
+	font-size: 16px;
+	margin-left: 100px;
+}
+
+#member_id {
+	padding: 10px;
+	font-size: 16px;
+	width: 250px;
+	margin-left: 100px;
+}
+
+#email {
+	padding: 10px;
+	font-size: 16px;
+	width: 300px;
+	margin-left: 100px;
+}
+
+.check {
+	font-size: 16px;
+	margin-left: 100px;
+}
+
+.card-title {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	text-align: center;
+	height: 100%;
+	object-fit: cover;
+}
+
+.text {
+	font-size: 20px;
+	margin-left: 100px;
+}
+
+.btn-primary:hover {
+	background-color: rgb(250, 164, 3);
+}
+
+.label {
+	display: inline-block;
+	width: 100px;
+	font-weight: bold;
+}
+
+.address-wrapper {
+	margin-left: 100px;
+}
+
+.address-input {
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+.btn-search {
+	margin-left: 10px;
+}
+
+.contact-wrapper {
+	/* 	margin-left: auto; /* 오른쪽 정렬 */ */
+	/* 	margin-right: 30px; /* 오른쪽 마진 추가 */ */
+	/* 	right: 100px; */
+	text-align: right;
+}
+
+.contact-input {
+	width: 250px;
+	margin-bottom: 10px;
+	font-size: 20px; /* 폰트 크기 키움 */
+}
+
+.email-input {
+	width: 300px;
+	margin-bottom: 10px;
+	font-size: 24px; /* 폰트 크기 키움 */
+}
+
+.address-wrapper, contact-wrapper, email-wrapper {
+	margin-left: 20px
+}
+</style>
+</head>
+
+<body cellpadding="0" cellspacing="0" marginleft="0" margintop="0"
+	width="100%" height="100%">
+
+	<div class="card" style="width: 40rem;">
+		<div class="card-title" style="margin-top: 30px;">
+			<a href="/Index.jsp">
+				<h6 class="card-title">
+					<img src="../img/태원요청.png" />
+				</h6>
+			</a>
+		</div>
+		<div class="card-body">
+
+			<form action="<%=request.getContextPath()%>/MemberUpdate"
+				method="post" enctype="multipart/form-data">
+				<hr>
+				<p class="text">
+					<span class="label"> 아이디 : </span>
+					<%=mv.getMemId()%></p>
+				<hr>
+				<p class="text">
+					<span class="label"> 비밀번호 : </span>
+					<%
+						String password = mv.getMemPw();
+					String asterisks = password != null ? new String(new char[password.length()]).replace("\0", "*") : "";
+					%>
+					<%=asterisks%>
+					<input type="hidden" name="currentPassword" value="<%=password%>">
+					<input type="password" class="form-control" id="newPassword"
+						name="newPassword" placeholder="새로운 비밀번호를 입력하세요">
+				</p>
+				<hr>
+				<p class="text">
+					<span class="label"> 이름 : </span>
+					<%=mv.getMemNm()%></p>
+
+				<hr>
+				<div class="contact-wrapper">
+					<span class="label"> 전화번호 : </span> <input type="text"
+						class="form-control contact-input" id="phone" name="phone"
+						value="<%=mv.getMemTel()%>">
+				</div>
+				<hr>
+				<p class="text">
+					<span class="label"> 닉네임 : </span>
+					<%=mv.getMemNic()%></p>
+				<hr>
+				<%
+					String strBir = mv.getMemBir();
+				%>
+				<p class="text">
+					<span class="label"> 생년월일 : </span>
+					<%
+						SimpleDateFormat outputFormat = new SimpleDateFormat("yy-MM-dd");
+					String formattedDate = outputFormat.format(outputFormat.parse(mv.getMemBir()));
+					%>
+					<%=formattedDate%>
+				<hr>
+				<div class="email-wrapper">
+					<span class="label"> 이메일 : </span> <input type="text"
+						class="form-control email-input" id="email" name="email"
+						value="<%=mv.getMemEmail()%>">
+				</div>
+				<hr>
+				<div class="address-wrapper">
+					<span class="label"> 주소 : </span> <input type="text"
+						class="form-control address-input" id="addr" name="addr"
+						value="<%=mv.getMemAddr()%>">
+					<button type="button" class="btn btn-sm btn-primary btn-search"
+						onclick="openAddressSearch()">주소 검색</button>
+				</div>
+				<hr>
+				<input id="btn_memupdate" class="btn btn-lg btn-primary btn-block"
+					type="submit" value="회원정보 수정완료">
+				<button id="btn-unresister" class="btn btn-lg btn-primary btn-block"
+					type="button" onclick="location.href =	'/Logout' ">
+					<b>회원 탈퇴</b>
+				</button>
+			</form>
+		</div>
+	</div>
+	<script>
+		// 다음 우편번호 서비스 스크립트 로드
+		function openAddressSearch() {
+			new daum.Postcode({
+				oncomplete : function(data) {
+					// 선택한 주소 정보를 해당 필드에 넣기
+					document.getElementById('addr').value = data.address;
+				}
+			}).open();
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+package kr.or.ddit.board.dao;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.exceptions.PersistenceException;
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.CommentVO;
+import kr.or.ddit.util.MyBatisUtil;
+
+
+public class BoardDaoImpl implements IBoardDao {
+
+	private static IBoardDao bdDao;
+
+	public static IBoardDao getInstance() {
+		if (bdDao == null)
+			bdDao = new BoardDaoImpl();
+		return bdDao;
+	}
+
+	@Override
+	public int insertNotice(BoardVO bv) {
+		
+		int cnt = 0;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+
+			cnt = session.insert("board.insertNotice", bv);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return cnt;
+	}
+	
+
+	@Override
+	public boolean checkNotice(int bdNo) {
+
+		boolean isExist = false;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+
+			int cnt = session.selectOne("board.checkNotice", bdNo);
+
+			if (cnt > 0) {
+				isExist = true;
+			}
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return isExist;
+		
+	}
+	
+	@Override
+	public List<BoardVO> getAllNotice() {
+
+		List<BoardVO> ncList = new ArrayList<BoardVO>();
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+
+			ncList = session.selectList("board.getAllNotice");
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return ncList;
+
+	}
+
+	@Override
+	public int updateNoitce(BoardVO bv) {
+	
+		int cnt = 0;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+		try {
+
+			cnt = session.update("board.updateNoitce", bv);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return cnt;
+		
+	}
+
+	@Override
+	public int deleteNotice(int bdNo) {
+		
+		int cnt = 0;
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+			cnt = session.delete("board.deleteNotice", bdNo);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return cnt;
+		
+	}
+	
+	@Override
+	public List<BoardVO> getNotice(BoardVO bv) {
+
+		List<BoardVO> bvList = Collections.emptyList();
+		
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+			
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("bdNo", bv.getBdNo());
+			paramMap.put("memId", bv.getMemId());
+			paramMap.put("bdTitle", bv.getBdTitle());
+			paramMap.put("bdCont", bv.getBdCont());
+			
+			bvList = session.selectList("board.getNotice", paramMap);
+
+			
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return bvList;
+	
+	}
+
+	@Override
+	public BoardVO getNoticeOne(int bdNo) {
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		BoardVO bv = null;
+		
+		try {
+			
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("bdNo", bdNo);
+			
+			bv = session.selectOne("board.getNoticeOne", map);
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return bv;
+		
+	}
+
+	@Override
+	public BoardVO getWriterCate(BoardVO bv) {
+		
+		SqlSession session = MyBatisUtil.getInstance(true);
+		
+		BoardVO wc = null;
+		
+		try {
+			
+			wc = session.selectOne("board.getWriterCate", wc);
+			
+		}catch(PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return wc;
+	}
+
+	@Override
+	public List<CommentVO> getAllNoticeComment() {
+
+		List<CommentVO> cmList = new ArrayList<CommentVO>();
+
+		SqlSession session = MyBatisUtil.getInstance(true);
+
+		try {
+
+			cmList = session.selectList("board.getAllNoticeComment");
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return cmList;
+	}
+	
+}

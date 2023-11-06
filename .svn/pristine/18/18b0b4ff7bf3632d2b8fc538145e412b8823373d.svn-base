@@ -1,0 +1,25 @@
+<%@page import="kr.or.ddit.banban.vo.MsgVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%
+	MsgVO msgvo = (MsgVO) request.getAttribute("msgvo");
+    String loginId = String.valueOf(session.getAttribute("loginCode"));
+    
+%>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> 쪽지 보내기 </title>
+</head>
+<body>
+	<form action="<%=request.getContextPath() %>/insertMsg.do" method="post">
+	    보낸사람 : <input type="text" name="memId" value = "<%=loginId%>" readonly><br>
+	    받는사람 : <input type="text" name="wmReceiveId"><br>
+   	    내용: <textarea rows="10" cols="30" name="wmMsg"></textarea> <br>
+    <input type="submit" value="쪽지보내기"></input>
+  	<input type="button" value="뒤로" onClick="history.go(-1)"/>
+	</form>	
+</body>
+</html>

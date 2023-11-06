@@ -1,0 +1,105 @@
+<%@page import="kr.or.ddit.banban.vo.MsgVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>받은쪽지함</title>
+</head>
+<script>
+  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+
+  ChannelIO('boot', {
+    "pluginKey": "2387f2e2-a8ef-4c5a-99e6-95f2c37e6632"
+  });
+</script>
+<body>
+
+
+<%
+	/* session.setAttribute("receive_id", "받는이");
+	WebMsgDTO dto = (WebMsgDTO)session.getAttribute("receive_id"); */
+	List<MsgVO> msgList = (List<MsgVO>) request.getAttribute("msgList");
+	//request.setAttribute("memId", "받는이");
+			/* 받는이는 로그인한 사람의 아이디가 들어가도록 */
+	/* MsgVO dto = new MsgVO(session.getAttribute("wmReceiveId").toString());
+	MsgDaoImpl dao = new MsgDaoImpl();
+	ArrayList<MsgVO> listMsg = new ArrayList<MsgVO>(); */
+	
+	/* System.out.println("1 : " + dto2.getReceive_id());
+	System.out.println("2 : " + dao); */
+	
+	/* if(dto != null) {
+		listMsg = dao.showMsgDTO(dto.getWmReceiveId());
+	} */
+%>
+	<form action="/deleteMsg.do" name="msgForm">
+	<table border="1px solid">
+		<tr>
+			<th> </th>
+			<th> 번호 </th>
+			<th> 보낸사람 </th>
+			<th> 받는사람 </th>
+			<th> 내용 </th>
+			<th> 발신일 </th>
+		</tr>
+		
+		<tr>
+<% 
+	int msgSize = msgList.size();
+	
+	if (msgSize == 0) {
+	out.print("받은쪽지없음");
+	}else {
+		int i = 1;
+		for (MsgVO msg : msgList) {
+			
+%>
+			<td> <input type="checkbox" name="wmNo[]" value="<%=msg.getWmNo() %>"> </td>
+			<td> <%=i++%> </td>
+			<td> <%=msg.getMemId() %> </td>
+			<td> <%=msg.getWmReceiveId() %> </td>
+			<td><a href="/selectMsg.do?wmNo=<%=msg.getWmNo()%>"> <%=msg.getWmMsg() %></a> </td>
+			<td> <%=msg.getWmMdate() %> </td>
+		</tr>
+<%
+		}
+	}
+%>
+	</table>
+   	<input type="button" value="뒤로" onClick="history.go(-1)"/>
+	<input type="button" value="메인" onClick="location.href='Index.jsp'">
+	<input type="button" value="삭제" onclick="f_chk()">
+	</form>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script>
+	function f_chk(){
+		var chk_arr = $("input[name='wmNo[]']");
+
+        var chk_data = [];
+        for( var i=0; i<chk_arr.length; i++ ) {
+            if( chk_arr[i].checked == true ) {
+                chk_data.push(chk_arr[i].value);
+            }
+        }
+        console.log(chk_data);
+        
+        const form = document.createElement('form'); // form 태그 생성
+        form.setAttribute('method', 'get'); // 전송 방식 결정 (get or post)
+        form.setAttribute('action', "/deleteMsg.do"); // 전송할 url 지정
+        
+        const data_1 = document.createElement('input'); // input 태그 생성
+        data_1.setAttribute('type', 'hidden'); // type = hidden
+        data_1.setAttribute('name', 'checked'); // 데이터의 key
+        data_1.setAttribute('value', chk_data); // 데이터의 value (여기서는 data1)
+        
+        form.appendChild(data_1);
+        document.body.appendChild(form);
+        form.submit();      
+	}
+	</script>
+</body>
+</html>

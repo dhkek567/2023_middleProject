@@ -1,0 +1,35 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
+<!-- <head> -->
+<!--     <meta charset="UTF-8"> -->
+<!--     <title>Document</title> -->
+<!-- </head> -->
+<!-- <body> -->
+<!--     <input type="button" value="쪽지보내기" onclick="f_winOpen()"> -->
+<!--     <script> -->
+//         let v_popup;
+//         let f_winOpen = function() {
+//             //window.open(url, name(타겟, 창-window의 이름), specs) //window생략가능
+//             //하이퍼링크(hyperlink (a tag)) - target -> self(default), _blank, _parent, _top
+//             //open - target -> _blank(default)
+//             //open메소드에서 두번째 인자로 window의 이름(창의 이름) 지정 시 동일한 창 위치로 내용을 적재
+            
+//             //간략히 하자면
+//             //window.open(url, name(타겟, 창-window의 이름), specs) //window생략가능
+//             //target 기본값 -> blank
+//             //name (window의 이름, 창의 이름) 지정시 동일한 창 위치로 내용을 적재
+
+//             // open('//naver.com', '_blank', 'width=500 height=500');  //네이버 띄워짐
+//             // v_popup = open('../0612/string.html', '_blank', 'width=500 height=500 top=50 left=50');  //0612 string파일 열림
+//             v_popup = open("/insertMsg.do", 'child', 'width=500 height=500 top=50 left=50');  //0612 string파일 열림
+
+//             setTimeout(function() {
+//                 //스크립트 실행과 요소의 생성순서에 따라 결과유무가 변함
+//                 //open()을 통해 새창 생성 전 아래 콘솔을 먼저 실행하여 에러를 발생시킴
+//                 // -> setTimeout으로 시간차를 두어 새창 생성 후 요소 검색하여 오류 해결
+//                 console.log(" -> ", v_popup.document.querySelector('textarea').value);
+//             }, 1000);
+//         };
+<!--     </script> -->
+<!-- </body> -->
+<!-- </html> -->

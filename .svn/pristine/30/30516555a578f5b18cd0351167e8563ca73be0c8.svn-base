@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- AOS -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@3.2.1/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+	<img src="/img/intromain.png">
+	<img src="/img/intro1.png">
+	<img src="/img/intro2.png">
+	<img src="/img/intro3.png">
+	<img src="/img/intro4.png">
+</body>
+</html>

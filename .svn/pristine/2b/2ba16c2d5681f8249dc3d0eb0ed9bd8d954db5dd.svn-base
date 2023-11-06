@@ -1,0 +1,28 @@
+package kr.or.ddit.banban.dao;
+
+import kr.or.ddit.banban.dao.MyBatisDao;
+import kr.or.ddit.banban.vo.DonationListVO;
+
+public class DonationDaoImpl extends MyBatisDao implements IDonationDao {
+	
+	private DonationDaoImpl() {};
+	
+	private static IDonationDao dao = null;
+	
+	public static IDonationDao getInstance() {
+		if(dao == null) {
+			dao = new DonationDaoImpl();
+		}
+		return dao;
+	}
+	
+	
+	@Override
+	public int insertDonation(DonationListVO dv) {
+		
+		int cnt = insert("don.insertDonationList", dv);
+		
+		return 0;
+	}
+
+}

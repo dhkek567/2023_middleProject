@@ -1,0 +1,75 @@
+package kr.or.ddit.board.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import kr.or.ddit.board.vo.WebMsgDTO;
+import kr.or.ddit.util.MyBatisUtil;
+
+
+public class WebMsgDao {
+		
+	private Connection conn;
+	private Statement stmt;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	
+	public int insertMsg (WebMsgDTO dto) {
+//		conn();
+		int cnt = 0;
+		
+		try {
+			String sql = " insert into web_message values (num_msg.nextval, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getSend_id());
+			pstmt.setString(2, dto.getReceive_id());
+			pstmt.setString(3, dto.getMsg());
+			
+			cnt = pstmt.executeUpdate();
+			
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+//		}finally {
+//			MyBatisUtil.close(conn, pstmt, pstmt, rs);
+		}
+		return cnt;
+	}
+	
+	public ArrayList<WebMsgDTO> showMsgDTO (String receive_id_param) {
+		
+		ArrayList<WebMsgDTO> listMsg = new ArrayList<WebMsgDTO>();
+//		conn();
+		
+		try {
+			String sql = "select * from web_message where receive_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, receive_id_param);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int num = rs.getInt(1);
+				String send_id = rs.getString(2);
+				String receive_id = rs.getString(3);
+				String msg = rs.getString(4);
+				String date = rs.getString(5);
+				WebMsgDTO dto = new WebMsgDTO(num, send_id, receive_id, msg, date);
+				listMsg.add(dto);
+			}
+			
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+//		}finally {
+//			JDBCUtil.close(conn, pstmt, pstmt, rs);
+		}
+		return listMsg;
+	}
+	
+//	private void conn() {
+//		JDBCUtil jdbc = new JDBCUtil();
+//		conn = jdbc.getConnection();
+//	}
+}

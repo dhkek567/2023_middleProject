@@ -1,0 +1,129 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="kr.or.ddit.banban.vo.DonationListVO"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	List<DonationListVO> dcList = (List<DonationListVO>)request.getAttribute("dcList");
+	String memId = (String) session.getAttribute("loginCode");
+	
+	String msg = session.getAttribute("msg") == null ? "" : (String) session.getAttribute("msg");
+	session.removeAttribute("msg");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="<%=request.getContextPath()%>/css/css.css" rel="stylesheet" type="text/css">
+<title>기부자 확인 목록</title>
+<style>
+    .board_list div {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+/*     .board_list div > * { */
+/*         margin-right: 10px; /* 원하는 간격 값으로 변경 */ */
+/*     } */
+</style>
+
+</head>
+<body>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>기부 리스트</strong>
+		</div>
+	
+		<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="top">
+					<div class="num">순서</div>
+					<div class="donNo">기부번호</div>
+					<div class="writer">기부자</div>
+					<div class="date">기부일</div>
+					<div class="donAmt">기부금액</div>
+				</div>
+
+<%
+					
+					int ncSize = dcList.size();
+					if (ncSize == 0) {
+						
+					} else {
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					
+					int i = 1;
+					for (DonationListVO dv : dcList) {
+%>
+
+				<div>
+					<div class="num"><%= i++ %></div>
+<!-- 					<div class="title"> -->
+<%-- 												<a href="./noticeDetail.do?bdNo=<%=bv.getBdNo()%>&bdCateNo=<%=bv.getBdCateNo() %>"><%=bv.getBdTitle()%></a> --%>
+<%-- 						<a href="./ADdonationList.do?donNo=<%=dv.getDpNo()%>"></a> --%>
+<!-- 					</div> -->
+					<div class="donNo"><%=dv.getDpNo()%></div>
+					<div class="writer"><%=dv.getMemId()%></div>
+					<div class="date"><%=sdf.format(dv.getDpDate())%></div>		
+					<div class="donAmt"><%=dv.getDpAmt()%></div>		
+				</div>
+				
+<%
+					}
+				}
+%>
+
+			</div>
+			<div class="board_page">
+				<a href="#" class="bt first"><<</a> <a href="#" class="bt prev"><</a>
+				<a href="#" class="num on">1</a> <a href="#" class="num">2</a> <a
+					href="#" class="num">3</a> <a href="#" class="num">4</a> <a
+					href="#" class="num">5</a> <a href="#" class="bt next">></a> <a
+					href="#" class="bt last">>></a>
+			</div>
+			<br>
+			<br>
+			<br>
+<!-- 			<center> -->
+<!-- 			<div class="container"> -->
+<!-- 		<div class="row"> -->
+<!-- 			<form method="post" name="search" action="searchbbs.jsp"> -->
+<!-- 				<table class="pull-right"> -->
+<!-- 					<tr> -->
+<!-- 						<td><select class="form-control" name="searchField"> -->
+<!-- 								<option value="0">선택</option> -->
+<!-- 								<option value="bbsTitle">기부자</option> -->
+<!-- 								<option value="userID">기부금액</option> -->
+<!-- 						</select></td> -->
+<!-- 						<td><input type="text" class="form-control" -->
+<!-- 							placeholder="검색어 입력" name="searchText" maxlength="100"></td> -->
+<!-- 						<td><button type="submit" class="btn btn-success">검색</button></td> -->
+<!-- 					</tr> -->
+
+<!-- 				</table> -->
+<!-- 			</form> -->
+<!-- 		</div> -->
+<!-- 			</center> -->
+	</div>
+		</div>
+	</div>
+	
+<%
+	if(msg == null || msg.equals("")) {
+		%>
+		<%
+	}else{
+%>
+
+<script>
+	alert("<%=msg%>");
+</script>
+<%
+	} 
+%>
+	
+</body>
+</html>

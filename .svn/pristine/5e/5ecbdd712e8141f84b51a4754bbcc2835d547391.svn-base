@@ -1,0 +1,22 @@
+package kr.or.ddit.banban.service;
+
+import java.util.List;
+
+import kr.or.ddit.banban.vo.BoardVO;
+
+public interface IBoardService {
+
+	public int registerNotice (BoardVO nv);
+
+	public boolean checkNotice(int bdNo);
+
+	public List<BoardVO> getAllNotice();
+	
+	public int modifyNotie(BoardVO nv);
+	
+	public int removeNotice(int bdNo);
+
+	public List<BoardVO> getNotice(BoardVO nv);
+	
+	public BoardVO getNoticeOne(int bdNo);
+}

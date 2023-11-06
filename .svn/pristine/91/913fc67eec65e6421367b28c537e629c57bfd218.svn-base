@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+	<insert id="insertNotice"
+		parameterType="kr.or.ddit.notice.vo.NoticeVO">
+
+		insert into board 
+		(BD_NO, BD_CATE_NO, BD_NM, BD_CON, BD_REG, BD_CNT, BD_REP, MEM_ID, BAF_ID)
+		values
+		(BD_seq.nextVal, #{bdCateNo}, #{bdNm}, #{bdCon}, #{bdReg}, #{bdCnt}, #{bdRep}, #{memId}, #{bafId});
+
+	</insert>
+
+	<update id="updateBoard"
+		parameterType="kr.or.ddit.notice.vo.NoticeVO">
+
+		UPDATE jdbc_board
+		SET board_title = #{board_title}
+		,
+		board_writer = #{board_writer}
+		, board_content = #{board_content}
+		WHERE board_no = #{board_no}
+
+	</update>
+
+	<delete id="deleteBoard" parameterType="String">
+		DELETE from jdbc_board
+		WHERE board_no = #{아무거나}
+	</delete>
+
+	<resultMap type="kr.or.ddit.notice.vo.NoticeVO" id="ncMap">
+		<result column="BD_NO" property="bdNo" />
+		<result column="BD_CATE_NO" property="bdCateNo" />
+		<result column="BD_TITLE" property="bdTitle" />
+		<result column="BD_CONT" property="bdCont" />
+		<result column="BD_REG" property="bdReg" />
+		<result column="BD_HITS" property="bdHits" />
+		<result column="BD_REPCNT" property="bdRepCnt" />
+		<result column="MEM_ID" property="memId" />
+		<result column="BAF_ID" property="fileId" />
+	</resultMap>
+		
+	<select id="getAllNotice" resultMap="ncMap">
+		SELECT *
+		FROM board
+	</select>
+	
+	<select id="getAllNotice2" resultMap="ncMap">
+		
+		SELECT 
+		BD_NO as bdNo,
+		BD_CATE_NO as bdCateNo,
+		BD_NM as bdTitle,
+		BD_CON as bdCont,
+		BD_REG as bdReg,
+		BD_REP as bdHits,
+		MEM_ID as memId,
+		BAF_ID as fileId
+		FROM board
+		
+	</select>
+
+	<select id="getBoard" parameterType="String"
+		resultType="kr.or.ddit.notice.vo.NoticeVO">
+		SELECT board_no board_no
+		, board_title board_title
+		, board_writer board_writer
+		, board_content board_content
+		, board_date regDt
+		FROM jdbc_board
+		WHERE 1=1
+		<if test='board_no != null and board_no != ""'>
+			and board_no = #{board_no}
+		</if>
+		<if test='board_title != null and board_title != ""'>
+			and board_title = #{board_title}
+		</if>
+		<if test='board_writer != null and board_writer != ""'>
+			and board_writer = #{board_writer}
+		</if>
+		<if test='board_content != null and board_content != ""'>
+			and board_content like '%' || #{board_content} || '%'
+		</if>
+		
+	</select>
+	
+	<select id="getBoardone" parameterType="String"
+		resultType="kr.or.ddit.notice.vo.NoticeVO">
+		SELECT board_no board_no
+		, board_title board_title
+		, board_writer board_writer
+		, board_content board_content
+		, board_date regDt
+		FROM jdbc_board
+		WHERE board_no = #{아무거나}
+		
+	</select>
+
+	<select id="checkBoard" parameterType="String" resultType="int">
+		SELECT count(*) as cnt
+		FROM jdbc_board
+		WHERE board_no = #{boardno}
+	</select>
+
+	
+</mapper>

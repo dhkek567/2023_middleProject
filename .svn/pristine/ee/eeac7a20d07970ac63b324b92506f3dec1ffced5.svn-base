@@ -1,0 +1,67 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="kr.or.ddit.banban.vo.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	MemberVO mv = (MemberVO) request.getAttribute("mv");
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원정보 변경</title>
+</head>
+<body>
+	<form action="<%=request.getContextPath()%>/MemberUpdate"
+		method="post" enctype="multipart/form-data">
+		<input type="hidden" name="memId" value="<%=mv.getMemId()%>">
+		<table>
+			<table border="3">
+				<tr>
+					<td>아이디 :</td>
+					<td><%=mv.getMemId()%></td>
+				</tr>
+				<tr>
+					<td>이름 :</td>
+					<td><%=mv.getMemNm()%></td>
+				</tr>
+				<tr>
+					<td>비밀번호 :</td>
+					<td><input type="text" name="memPw"
+						value="<%=mv.getMemPw()%>"></td>
+				</tr>
+				<tr>
+					<td>전화번호 :</td>
+					<td><input type="text" name="memTel"
+						value="<%=mv.getMemTel()%>"></td>
+				</tr>
+				<tr>
+					<td>닉네임 :</td>
+					<td><%=mv.getMemNic()%></td>
+				</tr>
+				<tr>
+					<td>생년월일 :</td>
+					<td><input type="text" name="memBir"
+						value="<%=mv.getMemBir()%>">
+						</td>
+				</tr>
+				<tr>
+					<td>이메일 :</td>
+					<td><input type="text" name="memEmail"
+						value="<%=mv.getMemEmail()%>"></td>
+				</tr>
+				<tr>
+					<td>주소 :</td>
+					<td><input type="text" name="memAddr"
+						value="<%=mv.getMemAddr()%>"></td>
+				</tr>
+			</table>
+			<input type="submit" value="회원정보 수정">
+			
+			</form>
+</body>
+</html>

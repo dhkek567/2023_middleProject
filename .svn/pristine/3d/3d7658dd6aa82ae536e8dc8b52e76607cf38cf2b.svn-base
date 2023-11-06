@@ -1,0 +1,23 @@
+package kr.or.ddit.banban.dao;
+
+import java.util.List;
+
+import kr.or.ddit.banban.vo.NoticeVO;
+
+
+public interface INoticeDaoforJDBC {
+
+	public int insertNotice (NoticeVO nv);
+
+	public boolean checkNotice(int bdNo);
+	
+	public List<NoticeVO> getAllNotice();
+
+	public int updateNoitce(NoticeVO nv);
+
+	public int deleteNotice(int bdNo);
+
+	public List<NoticeVO> getNotice(NoticeVO nv);
+
+	public NoticeVO getNoticeOne(int bdNo);
+}

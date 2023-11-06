@@ -1,0 +1,6 @@
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@localhost:1521:xe
+password=java
+username=pc21
+greeting=안녕하세요
+
